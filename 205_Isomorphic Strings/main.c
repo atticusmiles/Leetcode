@@ -21,6 +21,13 @@ bool isIsomorphic(char* s, char* t)
     {
         if (-1==Cypher[(int)*s])
         {
+            for (int i=0; i<256; ++i)
+		    {
+		        if (Cypher[i]==(int)*t)
+		        {
+		        	return false;
+		        }
+		    }
             Cypher[(int)*s]=(int)*t;
             ++s;
             ++t;
@@ -45,8 +52,8 @@ int main()
 {
     char *s;
     char *t;
-    s="abc";
-    t="abc";
+    s="paper";
+    t="title";
     printf("%i\n", isIsomorphic(s,t));
     while(1);
 }
