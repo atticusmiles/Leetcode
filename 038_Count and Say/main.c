@@ -56,6 +56,7 @@
 // 	return out;
 // }
 
+// 其实这一体可以不用递归的,直接循环也很简单
 char* getNext(char *num) 
 {
 	char *tmp=(char*)malloc(10000*sizeof(char));
