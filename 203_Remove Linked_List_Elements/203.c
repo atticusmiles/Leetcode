@@ -28,6 +28,8 @@ struct ListNode* findPrev(struct ListNode* head, int val)
 
 struct ListNode* removeElements(struct ListNode* head, int val) 
 {
+    if (!head) return head;
+    
     struct ListNode* header=malloc(sizeof(struct ListNode));
     struct ListNode* ptrNode;
     struct ListNode* ptrPrev;
@@ -38,7 +40,7 @@ struct ListNode* removeElements(struct ListNode* head, int val)
 
     ptrNode=header;
 
-    while(NULL!=ptrNode->next)
+    while(NULL!=ptrNode->next )
     {
     	if (NULL!=(ptrPrev=findPrev(ptrNode,val)))
     	{
@@ -49,7 +51,7 @@ struct ListNode* removeElements(struct ListNode* head, int val)
     	}
     	else
     	{
-    		ptrNode->next=NULL;
+    		break;
     	}
     }
     return header->next;
