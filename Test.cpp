@@ -31,3 +31,5 @@ int main ()
   while(1);
   return 0;
 }
+
+//sudo /Volumes/SeagateHDD/Archive/Install\ OS\ X\ Mavericks.app/Contents/Resources/createinstallmedia --volume /Volumes/Mavericks --applicationpath /Volumes/SeagateHDD/Archive/Install\ OS\ X\ Mavericks.app --nointeraction
