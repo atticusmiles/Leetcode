@@ -1,35 +1,54 @@
 // string constructor
-#include <iostream>
 #include <string>
 #include <map>
 #include <unordered_map>
+#include "data_type.h"
+
 using namespace std;
+
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) 
+    {
+    	if(NULL==root) return NULL;
+
+    	TreeNode* tmp=root->left;
+    	root->left = invertTree(root->right);
+    	root->right = invertTree(tmp);
+
+    	return root;
+    }
+};
 
 int main ()
 {
-  string s0 ("Initial string");
+	//Initiate List
+	ListNode list[30];
+	for(int i=0; i<29; ++i)
+	{
+		list[i].val=i;
+		list[i].next=&list[i+1];
+	}
+	list[29].val=29;
+	ListNode *head = &list[0];
 
-  // constructors used in the same order as described above:
-  string s1;
-  string s2 (s0);
-  string s3 (s0, 8, 3);
-  string s4 ("A character sequence", 6);
-  string s5 ("Another character sequence");
-  string s6 (10, 'x');
-  string s7a (10, 42);
-  string s7b (s0.begin(), s0.begin()+7);
+	//Initiate Trees
+	TreeNode tree[15];
+	for(int i=0; i<15; ++i)
+	{
+		tree[i].val=i;
+	}
+	tree[0].left=&tree[1];tree[0].right=&tree[2];
+	tree[1].left=&tree[3];tree[1].right=&tree[4];tree[2].left=&tree[5];tree[2].right=&tree[6];
+	tree[3].left=&tree[7];tree[3].right=&tree[8];tree[4].left=&tree[9];tree[4].right=&tree[10];tree[5].left=&tree[11];tree[5].right=&tree[12];tree[6].left=&tree[13];tree[6].right=&tree[14];
+	TreeNode* root = &tree[0];
 
-  unordered_map <char,int> ump= {{'I',1},{'V',5}};
+	Solution slt;
+	root=slt.invertTree(root);
+	root->print();
 
-  ump.insert(pair<char,int>('X',10));
-  // ump['X']=10;
-  // ump.erase('X');
-  cout<<ump['X']<<endl;
-  // cout << "s1: " << s1 << "\ns2: " << s2 << "\ns3: " << s3;
-  // cout << "\ns4: " << s4 << "\ns5: " << s5 << "\ns6: " << s6;
-  // cout << "\ns7a: " << s7a << "\ns7b: " << s7b << endl;
-  while(1);
-  return 0;
+	while(1);
+	return 1;
 }
 
-//sudo /Volumes/SeagateHDD/Archive/Install\ OS\ X\ Mavericks.app/Contents/Resources/createinstallmedia --volume /Volumes/Mavericks --applicationpath /Volumes/SeagateHDD/Archive/Install\ OS\ X\ Mavericks.app --nointeraction
+
