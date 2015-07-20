@@ -30,11 +30,6 @@ public:
     	return 0;
     }
 
-    bool isInside(int point_x, int point_y, int left_bottom_x, int left_bottom_y, int right_top_x, int right_top_y)
-    {
-    	return (point_x>=left_bottom_x &&point_x<=right_top_x && point_y>=left_bottom_y && point_y <= right_top_y);
-    }
-
     int getArea(int left_bottom_x, int left_bottom_y, int right_top_x, int right_top_y)
     {
     	return (right_top_x - left_bottom_x)*(right_top_y - left_bottom_y);

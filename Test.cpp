@@ -45,8 +45,11 @@ int main ()
 
 	Solution slt;
 	root=slt.invertTree(root);
-	root->print();
-
+//	root->print();
+	unsigned int a =0xfffffff7;
+	unsigned char i = (unsigned char) a ;
+	char *b =(char*) &a ;
+	printf("%08x, %08x",i,*b );
 	while(1);
 	return 1;
 }
