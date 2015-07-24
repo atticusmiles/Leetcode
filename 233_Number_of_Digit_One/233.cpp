@@ -17,6 +17,7 @@ int main()
 {
 	int n;
 	Solution slt;
+      
 	while(cin>>n)
 	{
 		cout<<slt.countDigitOne(n)<<endl;

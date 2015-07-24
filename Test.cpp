@@ -6,19 +6,36 @@
 
 using namespace std;
 
+
 class Solution {
 public:
-    TreeNode* invertTree(TreeNode* root) 
+    ListNode* rotateRight(ListNode* head, int k) 
     {
-    	if(NULL==root) return NULL;
+    	if(NULL==head) return NULL;
 
-    	TreeNode* tmp=root->left;
-    	root->left = invertTree(root->right);
-    	root->right = invertTree(tmp);
+    	int len =1;
+        ListNode* tail = head;
+        while(tail->next) 
+    	{
+    		tail=tail->next;
+    		++len;
+    	}
+    	int steps =(len-k%len);
+        tail->next = head;
 
-    	return root;
+        ListNode* new_tail = tail;
+        for(int i=0; i<steps; ++i)
+        {
+        	new_tail=new_tail->next;
+        }
+
+        ListNode* new_head = new_tail->next;
+
+        new_tail->next = NULL;
+        return new_head;
     }
 };
+
 
 int main ()
 {
@@ -44,12 +61,12 @@ int main ()
 	TreeNode* root = &tree[0];
 
 	Solution slt;
-	root=slt.invertTree(root);
-//	root->print();
-	unsigned int a =0xfffffff7;
-	unsigned char i = (unsigned char) a ;
-	char *b =(char*) &a ;
-	printf("%08x, %08x",i,*b );
+	slt.rotateRight(head, 2)->print();
+
+	// root->print();
+
+
+
 	while(1);
 	return 1;
 }
