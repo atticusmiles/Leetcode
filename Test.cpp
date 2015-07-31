@@ -1,4 +1,5 @@
 // string constructor
+#include <stack>
 #include <string>
 #include <map>
 #include <unordered_map>
@@ -9,37 +10,36 @@ using namespace std;
 
 class Solution {
 public:
-    ListNode* rotateRight(ListNode* head, int k) 
+    vector<int> inorderTraversal(TreeNode* root) 
     {
-    	if(NULL==head) return NULL;
-
-    	int len =1;
-        ListNode* tail = head;
-        while(tail->next) 
-    	{
-    		tail=tail->next;
-    		++len;
-    	}
-    	int steps =(len-k%len);
-        tail->next = head;
-
-        ListNode* new_tail = tail;
-        for(int i=0; i<steps; ++i)
+    	vector<int> traversal;
+        stack<pair<TreeNode*,bool>> output;
+        output.push({root,false});
+        while(!output.empty())
         {
-        	new_tail=new_tail->next;
+        	auto this_node = &(output.top());
+
+        	if(NULL!=this_node->first->left && false == this_node->second )
+        	{
+    			this_node->second = true;
+    			output.push({this_node->first->left,false});
+    			continue;
+        	}
+        	else
+        	{
+        		this_node->second = true;
+	        	traversal.push_back(this_node->first->val);
+	        	output.pop();
+	        	if(NULL!=this_node->first->right) output.push({this_node->first->right,false});
+        	}
         }
-
-        ListNode* new_head = new_tail->next;
-
-        new_tail->next = NULL;
-        return new_head;
+        return traversal;
     }
 };
 
 
 int main ()
 {
-	//Initiate List
 	ListNode list[30];
 	for(int i=0; i<29; ++i)
 	{
@@ -61,12 +61,15 @@ int main ()
 	TreeNode* root = &tree[0];
 
 	Solution slt;
-	slt.rotateRight(head, 2)->print();
-
-	// root->print();
-
-
-
+	// head->print();
+	root->print();
+	vector<int> res;
+	res = slt.inorderTraversal(root);
+	for(auto i:res)
+	{
+		cout<<i<<"\t";
+	}
+	cout<<"done"<<endl;
 	while(1);
 	return 1;
 }
