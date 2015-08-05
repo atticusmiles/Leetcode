@@ -7,36 +7,39 @@
 
 using namespace std;
 
-
 class Solution {
 public:
-    vector<int> inorderTraversal(TreeNode* root) 
+    vector<vector<int>> pathSum(TreeNode* root, int sum) 
     {
-    	vector<int> traversal;
-        stack<pair<TreeNode*,bool>> output;
-        output.push({root,false});
-        while(!output.empty())
-        {
-        	auto this_node = &(output.top());
-
-        	if(NULL!=this_node->first->left && false == this_node->second )
-        	{
-    			this_node->second = true;
-    			output.push({this_node->first->left,false});
-    			continue;
-        	}
-        	else
-        	{
-        		this_node->second = true;
-	        	traversal.push_back(this_node->first->val);
-	        	output.pop();
-	        	if(NULL!=this_node->first->right) output.push({this_node->first->right,false});
-        	}
-        }
-        return traversal;
+    	vector<int> path;
+    	vector<vector<int>> result;
+    	findPath(root, sum, path, result);
+    	return result;
+    }
+    void findPath(TreeNode* root, int sum, vector<int> &path, vector<vector<int>> &result)
+    {
+    	path.push_back(root->val);
+    	if(NULL==root->left && NULL==root->right)
+    	{
+    		if(sum==root->val) 
+    		{
+    			result.push_back(path);
+    		}
+    	}
+    	else
+    	{
+    		if(NULL!=root->left)
+    		{
+    			findPath(root->left, sum-root->val, path, result);
+    		}
+    		if(NULL!=root->right)
+    		{
+    			findPath(root->right, sum-root->val, path, result);
+    		}
+    	}
+    	path.pop_back();
     }
 };
-
 
 int main ()
 {
@@ -55,6 +58,7 @@ int main ()
 	{
 		tree[i].val=i;
 	}
+
 	tree[0].left=&tree[1];tree[0].right=&tree[2];
 	tree[1].left=&tree[3];tree[1].right=&tree[4];tree[2].left=&tree[5];tree[2].right=&tree[6];
 	tree[3].left=&tree[7];tree[3].right=&tree[8];tree[4].left=&tree[9];tree[4].right=&tree[10];tree[5].left=&tree[11];tree[5].right=&tree[12];tree[6].left=&tree[13];tree[6].right=&tree[14];
@@ -63,12 +67,17 @@ int main ()
 	Solution slt;
 	// head->print();
 	root->print();
-	vector<int> res;
-	res = slt.inorderTraversal(root);
-	for(auto i:res)
+	vector<vector<int>> res = slt.pathSum(root, 11);
+
+	for(auto &v : res)
 	{
-		cout<<i<<"\t";
+		for(auto i : v)
+		{
+			cout<<i<<"\t";
+		}
+		cout<<endl;
 	}
+
 	cout<<"done"<<endl;
 	while(1);
 	return 1;
