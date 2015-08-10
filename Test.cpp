@@ -9,35 +9,31 @@ using namespace std;
 
 class Solution {
 public:
-    vector<vector<int>> pathSum(TreeNode* root, int sum) 
+    void flatten(TreeNode* root) 
     {
-    	vector<int> path;
-    	vector<vector<int>> result;
-    	findPath(root, sum, path, result);
-    	return result;
+    	stack<TreeNode*> nodes;
+    	TreeNode* header = new TreeNode(0);
+    	TreeNode* tail = header;
+    	nodes.push(root);
+    	preoder_tvs(nodes, tail);
     }
-    void findPath(TreeNode* root, int sum, vector<int> &path, vector<vector<int>> &result)
+    void preoder_tvs(stack<TreeNode*> &cache, TreeNode* &tail)
     {
-    	path.push_back(root->val);
-    	if(NULL==root->left && NULL==root->right)
-    	{
-    		if(sum==root->val) 
-    		{
-    			result.push_back(path);
-    		}
-    	}
+    	if(cache.size()==0) return;
     	else
     	{
-    		if(NULL!=root->left)
-    		{
-    			findPath(root->left, sum-root->val, path, result);
-    		}
-    		if(NULL!=root->right)
-    		{
-    			findPath(root->right, sum-root->val, path, result);
-    		}
+    		TreeNode* this_node = cache.top();
+    		tail->right = this_node;
+    		tail = this_node;
+    		cache.pop();
+    		
+    		if(NULL!= this_node->right) cache.push(this_node->right);
+    		if(NULL!= this_node->left) cache.push(this_node->left);
+    		
+    		this_node->left = NULL;
+    		this_node->right = NULL;
     	}
-    	path.pop_back();
+    	preoder_tvs(cache,tail);
     }
 };
 
@@ -67,16 +63,17 @@ int main ()
 	Solution slt;
 	// head->print();
 	root->print();
-	vector<vector<int>> res = slt.pathSum(root, 11);
+	slt.flatten(root);
+	root->print();
 
-	for(auto &v : res)
-	{
-		for(auto i : v)
-		{
-			cout<<i<<"\t";
-		}
-		cout<<endl;
-	}
+	// for(auto &v : res)
+	// {
+	// 	for(auto i : v)
+	// 	{
+	// 		cout<<i<<"\t";
+	// 	}
+	// 	cout<<endl;
+	// }
 
 	cout<<"done"<<endl;
 	while(1);
