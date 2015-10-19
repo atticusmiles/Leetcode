@@ -26,7 +26,7 @@ struct TreeNode {
 	TreeNode(): TreeNode(0) {};
 	void print()
 	{
-		std::vector<TreeNode*> thisLevel{this};
+		std::vector<TreeNode*> thisLevel {this};
 		std::vector<TreeNode*> nextLevel;
 		while(!thisLevel.empty())
 		{

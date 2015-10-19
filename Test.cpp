@@ -81,8 +81,9 @@ int main ()
 	// head->print();
 	TreeNode* sumTree;
 	slt.maxUpPathSum(new_root, sumTree);
-	sumTree->print();
-	new_root->print();
+	root->print();
+	// sumTree->print();
+	// new_root->print();
 
 	// for(auto &v : res)
 	// {
